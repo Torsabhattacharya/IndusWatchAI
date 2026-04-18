@@ -1,0 +1,70 @@
+@'
+# Dependencies
+node_modules/
+venv/
+env/
+ENV/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyc
+.pytest_cache/
+.coverage
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build
+frontend/build/
+frontend/dist/
+*.egg-info/
+dist/
+build/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# Kafka
+kafka_2.13-3.6.0/
+/kafka/
+C:/kafka/
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets
+*.pem
+*.key
+*.crt
+
+# Frontend git
+frontend/.git/
+'@ | Out-File -FilePath "C:\IndusWatchAI\.gitignore" -Encoding UTF8kafka_2.13-3.6.0/
+C:/kafka/

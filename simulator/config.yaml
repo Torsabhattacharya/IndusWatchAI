@@ -1,0 +1,36 @@
+# IndusWatchAI Simulator Configuration
+simulator:
+  # Production scale settings
+  total_machines: 100  # Can be 10, 50, 100, 500, 1000+
+  
+  # API endpoint
+  api_url: "http://localhost:8000/sensor-data"
+  
+  # Machine configuration
+  machines:
+    # Can specify exact machines or use auto-generation
+    auto_generate:
+      enabled: true
+      start_id: 1
+      id_format: "M{:04d}"  # M0001, M0002 etc.
+      
+  # Machine type distribution (percentage)
+  machine_type_distribution:
+    CNC: 30
+    Pump: 25
+    Conveyor: 20
+    Compressor: 15
+    Generator: 10
+    
+  # Performance settings
+  performance:
+    batch_size: 100
+    parallel_uploads: 10
+    retry_attempts: 3
+    retry_delay: 1
+    
+  # Logging
+  logging:
+    level: "INFO"
+    rotate_size_mb: 100
+    keep_days: 7
