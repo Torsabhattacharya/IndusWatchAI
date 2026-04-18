@@ -27,7 +27,11 @@ interface SensorData {
   health_score?: number;
 }
 
-const UnifiedDashboard: React.FC = () => {
+interface UnifiedDashboardProps {
+  onLogout?: () => void;
+}
+
+const UnifiedDashboard: React.FC<UnifiedDashboardProps> = ({ onLogout }) => {
   const [machines, setMachines] = useState<string[]>([]);
   const [health, setHealth] = useState<any>(null);
   const [metrics, setMetrics] = useState<any>(null);
@@ -97,7 +101,6 @@ const UnifiedDashboard: React.FC = () => {
   };
 
   const COLORS = ['#8B00FF', '#4B0082', '#FF1493', '#00BFFF', '#9400D3', '#FF4500', '#DA70D6'];
-  const GRADIENT_COLORS = ['#6a11cb', '#2575fc', '#ff6a00', '#ee0979', '#00b4db', '#8B00FF', '#4B0082'];
   const RISK_COLORS: Record<string, string> = { LOW: '#00FF88', MEDIUM: '#FFD700', HIGH: '#FF6347', CRITICAL: '#FF0000' };
 
   if (loading) {
@@ -140,10 +143,18 @@ const UnifiedDashboard: React.FC = () => {
             <h1 style={{ margin: 0, fontSize: '28px', background: 'linear-gradient(135deg, #8B00FF, #FF1493)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>🏭 IndusWatchAI</h1>
             <p style={{ margin: '8px 0 0', opacity: 0.8, color: '#aaa' }}>Industrial Failure Prediction System | Real-time Monitoring</p>
           </div>
-          <div style={{ marginTop: '10px' }}>
+          <div style={{ marginTop: '10px', display: 'flex', gap: '10px', alignItems: 'center' }}>
             <span style={{ background: health?.kafka_connected ? 'linear-gradient(135deg, #00FF88, #00BFFF)' : '#f44336', padding: '6px 16px', borderRadius: '25px', fontSize: '12px', fontWeight: 'bold', color: 'black' }}>
               {health?.kafka_connected ? '🔌 Kafka Connected' : '⚠️ Kafka Disconnected'}
             </span>
+            {onLogout && (
+              <button 
+                onClick={onLogout}
+                style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.3)', padding: '6px 16px', borderRadius: '25px', color: 'white', cursor: 'pointer' }}
+              >
+                🚪 Logout
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -276,7 +287,9 @@ const UnifiedDashboard: React.FC = () => {
           <h3 style={{ margin: '0 0 20px', color: '#FF0000' }}>⚠️ Recent Alerts ({alerts.length} total)</h3>
           <div style={{ overflowX: 'auto' }}>
             <table style={styles.table}>
-              <thead><tr><th style={styles.th}>Time</th><th style={styles.th}>Machine</th><th style={styles.th}>Severity</th><th style={styles.th}>Message</th></tr></thead>
+              <thead>
+                <tr><th style={styles.th}>Time</th><th style={styles.th}>Machine</th><th style={styles.th}>Severity</th><th style={styles.th}>Message</th></tr>
+              </thead>
               <tbody>
                 {alerts.slice(0, 500).map((alert) => (
                   <tr key={alert.id}>
